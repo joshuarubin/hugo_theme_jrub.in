@@ -1,0 +1,41 @@
+<a name="top"></a>
+
+<div class="mdl-typography--text-center">
+    <div class="mdl-typography--display-1-color-contrast">{{.Site.Params.description}}</div>
+</div>
+
+{{$baseURL := .Site.BaseURL}}
+{{range $index, $page := .Paginator.Pages}}
+<div class="mdl-card mdl-shadow--2dp">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">
+      <a href="{{.Permalink}}">
+        {{ .Title }}
+      </a>
+    </h2>
+
+    {{if .Params.categories }}
+      &nbsp;
+      <div class="mdl-card__subtitle-text">
+        {{ range $index, $category := .Params.categories }}
+          <a href="{{$baseURL}}/categories/{{ $category | urlize }}/">{{ $category }}</a>
+        {{ end }}
+      </div>
+    {{end}}
+  </div>
+
+  <div class="mdl-card__supporting-text">
+    {{ .Summary }}
+    <br>
+    {{ .Date.Format "2 Jan 2006" }}
+  </div>
+
+  <div class="mdl-card__actions mdl-card--border mdl-typography--text-center">
+    {{if .Params.tags }}
+      {{ range $index, $tag := .Params.tags }}
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="{{$baseURL}}/tags/{{ $tag | urlize }}/">#{{ $tag }}</a>
+      {{ end }}
+    {{end}} 
+  </div>
+</div>
+{{end}}
